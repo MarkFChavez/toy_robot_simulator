@@ -6,15 +6,15 @@ class ToyRobot
 
   ORIENTATION_DATA = 1
   START_OF_COMMAND = 2
-  LEFT_COMPASS = { "NORTH" => "WEST", "WEST" => "SOUTH", "SOUTH" => "EAST", "EAST" => "NORTH" }
-  RIGHT_COMPASS = { "NORTH" => "EAST", "EAST" => "SOUTH", "SOUTH" => "WEST", "WEST" => "NORTH" }
+  LEFT_GUIDE = { "NORTH" => "WEST", "WEST" => "SOUTH", "SOUTH" => "EAST", "EAST" => "NORTH" }
+  RIGHT_GUIDE = { "NORTH" => "EAST", "EAST" => "SOUTH", "SOUTH" => "WEST", "WEST" => "NORTH" }
 
   def initialize(commands)
     @commands = commands.split(" ")
-    raise "PLACE should be the first command!" if @commands[0] != "PLACE"
   end
 
   def run!
+    raise "PLACE should be the first command!" if @commands[0] != "PLACE"
     set_location_and_move!(@commands)
   end
 
@@ -60,11 +60,11 @@ class ToyRobot
     end
 
     def move_to_left
-      LEFT_COMPASS[@dir]
+      LEFT_GUIDE[@dir]
     end
 
     def move_to_right
-      RIGHT_COMPASS[@dir]
+      RIGHT_GUIDE[@dir]
     end
 
     def report

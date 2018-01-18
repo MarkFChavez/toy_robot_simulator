@@ -68,7 +68,7 @@ class ToyRobot
     end
 
     def report
-      puts [@x, @y, @dir].join(",")
+      puts "Final Position: #{[@x, @y, @dir].join(',')}"
     end
 
     def edge_of_table?

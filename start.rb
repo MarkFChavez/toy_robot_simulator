@@ -10,7 +10,13 @@ TESTS = [
 
 TESTS.each do |test|
   robot = ToyRobot.new(test)
-  puts "Running #{test}"
-  robot.run!
+  puts "Running [#{test}]..."
+
+  begin
+    robot.run!
+  rescue => e
+    puts "ERROR: #{e.message}"
+  end
+
   puts ""
 end

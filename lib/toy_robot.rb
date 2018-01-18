@@ -2,6 +2,8 @@ require 'pry'
 
 class ToyRobot
 
+  attr_reader :x, :y, :dir
+
   ORIENTATION_DATA = 1
   START_OF_COMMAND = 2
   LEFT_COMPASS = { "NORTH" => "WEST", "WEST" => "SOUTH", "SOUTH" => "EAST", "EAST" => "NORTH" }
@@ -9,9 +11,10 @@ class ToyRobot
 
   def initialize(commands)
     @commands = commands.split(" ")
-
     raise "PLACE should be the first command!" if @commands[0] != "PLACE"
+  end
 
+  def run!
     set_location_and_move!(@commands)
   end
 
@@ -24,12 +27,7 @@ class ToyRobot
       @y = y.to_i
 
       commands[START_OF_COMMAND, commands.length].each do |command|
-        begin
-          send(command.downcase)
-        rescue => e
-          puts e.message
-          break
-        end
+        send(command.downcase)
       end
     end
 
@@ -61,16 +59,16 @@ class ToyRobot
       @x = @x - 1
     end
 
-    def report
-      p [@x, @y, @dir].join(",")
-    end
-
     def move_to_left
       LEFT_COMPASS[@dir]
     end
 
     def move_to_right
       RIGHT_COMPASS[@dir]
+    end
+
+    def report
+      puts [@x, @y, @dir].join(",")
     end
 
     def edge_of_table?
@@ -81,6 +79,4 @@ class ToyRobot
     end
 
 end
-
-ToyRobot.new("PLACE 0,0,NORTH RIGHT MOVE MOVE MOVE LEFT MOVE MOVE RIGHT MOVE MOVE MOVE REPORT")
 

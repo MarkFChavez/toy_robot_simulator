@@ -15,7 +15,7 @@ TESTS.each do |test|
   begin
     robot.run!
   rescue => e
-    puts "ERROR: #{e.message}"
+    puts "MESSAGE: #{e.message}"
   end
 
   puts ""

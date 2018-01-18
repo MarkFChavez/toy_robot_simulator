@@ -1,10 +1,13 @@
 require 'pry'
 
+# This assumes that a `ToyRobot` is on a 5x5 tabletop. Further improvements can be done
+# by making a separate `Table` class to make it more flexible so that we can create 
+# a tabletop with a customized width and height.
 class ToyRobot
 
   attr_reader :x, :y, :dir
 
-  ORIENTATION_DATA = 1
+  PLACE_OBJECT = 1
   START_OF_COMMAND = 2
   LEFT_GUIDE = { "NORTH" => "WEST", "WEST" => "SOUTH", "SOUTH" => "EAST", "EAST" => "NORTH" }
   RIGHT_GUIDE = { "NORTH" => "EAST", "EAST" => "SOUTH", "SOUTH" => "WEST", "WEST" => "NORTH" }
@@ -21,8 +24,7 @@ class ToyRobot
   private
 
     def set_location_and_move!(commands)
-      @orientation = commands[ORIENTATION_DATA]
-      x, y, @dir = @orientation.split(",")
+      x, y, @dir = commands[PLACE_OBJECT].split(",")
       @x = x.to_i
       @y = y.to_i
 
